@@ -9,4 +9,4 @@ add_executable(example main.cpp
         user.table.hpp
         book.table.hpp)
 
-target_link_libraries(example cpostgresql)
+target_link_libraries(example cExposed)

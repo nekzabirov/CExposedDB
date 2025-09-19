@@ -7,7 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(cmake/dependency/pqxx.dependency.cmake)
 
-set(NAME cpostgresql)
+set(NAME cExposed)
 
 # Опции сборки
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
