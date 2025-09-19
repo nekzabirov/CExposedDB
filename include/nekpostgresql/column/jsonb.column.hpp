@@ -8,18 +8,21 @@
 #include <string>
 #include "icolumn.hpp"
 
-using jsonb = std::string;
-
-template <typename TableType>
-class JsonbColumn final : public IColumn<TableType, jsonb>
+namespace nekpostgresql
 {
-public:
-    explicit JsonbColumn(const char* name)
-        : IColumn<TableType, jsonb>(name)
-    {
-    }
+    using jsonb = std::string;
 
-    std::string format(const jsonb& value) const override;
-};
+    template <typename TableType>
+    class JsonbColumn final : public IColumn<TableType, jsonb>
+    {
+    public:
+        explicit JsonbColumn(const char* name)
+            : IColumn<TableType, jsonb>(name)
+        {
+        }
+
+        [[nodiscard]] std::string format(const jsonb& value) const override;
+    };
+}
 
 #endif //CPOSTGRESQL_INTEGER_COLUMN_HPP

@@ -8,19 +8,22 @@
 #include <string>
 #include "icolumn.hpp"
 
-template<typename TableType>
-class StringColumn final : public IColumn<TableType, std::string>
+namespace nekpostgresql
 {
-public:
-    explicit StringColumn(const char* name)
-        : IColumn<TableType, std::string>(name)
+    template<typename TableType>
+    class StringColumn final : public IColumn<TableType, std::string>
     {
-    }
+    public:
+        explicit StringColumn(const char* name)
+            : IColumn<TableType, std::string>(name)
+        {
+        }
 
-    [[nodiscard]] std::string format(const std::string& value) const override
-    {
-        return "'" + value + "'";
-    }
-};
+        [[nodiscard]] std::string format(const std::string& value) const override
+        {
+            return "'" + value + "'";
+        }
+    };
+}
 
 #endif //CPOSTGRESQL_STRING_COLUMN_HPP

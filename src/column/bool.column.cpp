@@ -4,8 +4,11 @@
 
 #include "nekpostgresql/column/bool.column.hpp"
 
-template <typename TableType>
-std::string BoolColumn<TableType>::format(const bool& value) const
+namespace nekpostgresql
 {
-    return value ? "true" : "false";
+    template <typename TableType>
+    std::string BoolColumn<TableType>::format(const bool& value) const
+    {
+        return value ? "true" : "false";
+    }
 }

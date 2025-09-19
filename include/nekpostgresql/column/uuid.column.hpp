@@ -8,21 +8,24 @@
 #include <string>
 #include "icolumn.hpp"
 
-using uuid = std::string;
-
-template <typename TableType>
-class UuidColumn final : public IColumn<TableType, uuid>
+namespace nekpostgresql
 {
-public:
-    explicit UuidColumn(const char* name)
-        : IColumn<TableType, uuid>(name)
-    {
-    }
+    using uuid = std::string;
 
-    [[nodiscard]] std::string format(const uuid& value) const override
+    template <typename TableType>
+    class UuidColumn final : public IColumn<TableType, uuid>
     {
-        return "'" + value + "'";
-    }
-};
+    public:
+        explicit UuidColumn(const char* name)
+            : IColumn<TableType, uuid>(name)
+        {
+        }
+
+        [[nodiscard]] std::string format(const uuid& value) const override
+        {
+            return "'" + value + "'";
+        }
+    };
+}
 
 #endif //CPOSTGRESQL_UUID_COLUMN_HPP

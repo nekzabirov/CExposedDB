@@ -4,8 +4,11 @@
 
 #include <nekpostgresql/column/jsonb.column.hpp>
 
-template <typename TableType>
-std::string JsonbColumn<TableType>::format(const jsonb& value) const
+namespace nekpostgresql
 {
-    return std::format("'{}'::jsonb", value);
+    template <typename TableType>
+    std::string JsonbColumn<TableType>::format(const jsonb& value) const
+    {
+        return std::format("'{}'::jsonb", value);
+    }
 }

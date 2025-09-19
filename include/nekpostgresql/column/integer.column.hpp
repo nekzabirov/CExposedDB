@@ -6,14 +6,17 @@
 #define CPOSTGRESQL_INTEGER_COLUMN_HPP
 #include "icolumn.hpp"
 
-template <typename TableType>
-class IntegerColumn final : public IColumn<TableType, int>
+namespace nekpostgresql
 {
-public:
-    explicit IntegerColumn(const char* name)
-        : IColumn<TableType, int>(name)
+    template <typename TableType>
+    class IntegerColumn final : public IColumn<TableType, int>
     {
-    }
-};
+    public:
+        explicit IntegerColumn(const char* name)
+            : IColumn<TableType, int>(name)
+        {
+        }
+    };
+}
 
 #endif //CPOSTGRESQL_INTEGER_COLUMN_HPP
