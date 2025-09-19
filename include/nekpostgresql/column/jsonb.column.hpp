@@ -21,7 +21,10 @@ namespace nekpostgresql
         {
         }
 
-        [[nodiscard]] std::string format(const jsonb& value) const override;
+        [[nodiscard]] std::string format(const jsonb& value) const override
+        {
+            return std::format("'{}'::jsonb", value);
+        }
     };
 }
 

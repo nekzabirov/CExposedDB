@@ -10,6 +10,7 @@
 #include "nekpostgresql/column/string.column.hpp"
 #include "nekpostgresql/column/integer.column.hpp"
 
+using namespace nekpostgresql;
 
 class UserTable : public Table<UserTable>
 {

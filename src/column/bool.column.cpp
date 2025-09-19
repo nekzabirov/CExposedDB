@@ -3,12 +3,3 @@
 //
 
 #include "nekpostgresql/column/bool.column.hpp"
-
-namespace nekpostgresql
-{
-    template <typename TableType>
-    std::string BoolColumn<TableType>::format(const bool& value) const
-    {
-        return value ? "true" : "false";
-    }
-}

@@ -18,7 +18,10 @@ namespace nekpostgresql
         {
         }
 
-        std::string format(const bool& value) const override;
+        std::string format(const bool& value) const override
+        {
+            return value ? "true" : "false";
+        }
     };
 }
 

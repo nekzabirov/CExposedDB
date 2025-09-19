@@ -10,6 +10,8 @@
 #include "nekpostgresql/column/string.column.hpp"
 #include "nekpostgresql/column/uuid.column.hpp"
 
+using namespace nekpostgresql;
+
 class BookTable : public Table<BookTable>
 {
 public:

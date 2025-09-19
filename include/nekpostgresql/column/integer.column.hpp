@@ -16,6 +16,11 @@ namespace nekpostgresql
             : IColumn<TableType, int>(name)
         {
         }
+
+        [[nodiscard]] std::string format(const int& value) const override
+        {
+            return std::to_string(value);
+        }
     };
 }
 
