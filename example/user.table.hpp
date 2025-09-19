@@ -5,6 +5,7 @@
 #ifndef CPOSTGRESQL_USER_TABLE_HPP
 #define CPOSTGRESQL_USER_TABLE_HPP
 
+#include <string>
 #include <nekpostgresql/table.hpp>
 
 class UserTable : public Table<UserTable>
