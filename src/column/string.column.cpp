@@ -4,8 +4,4 @@
 
 #include <nekpostgresql/column/string.column.hpp>
 
-template <typename TableType>
-std::string StringColumn<TableType>::format(const std::string& value) const
-{
-    return "'" + value + "'";
-}
+// Реализация перенесена в заголовочный файл

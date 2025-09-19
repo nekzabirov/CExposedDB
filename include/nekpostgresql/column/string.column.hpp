@@ -17,7 +17,10 @@ public:
     {
     }
 
-    [[nodiscard]] std::string format(const std::string& value) const override;
+    [[nodiscard]] std::string format(const std::string& value) const override
+    {
+        return "'" + value + "'";
+    }
 };
 
 #endif //CPOSTGRESQL_STRING_COLUMN_HPP

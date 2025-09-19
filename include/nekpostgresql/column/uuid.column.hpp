@@ -2,8 +2,8 @@
 // Created by Nekbakht Zabirov on 17.09.2025.
 //
 
-#ifndef CPOSTGRESQL_INTEGER_COLUMN_HPP
-#define CPOSTGRESQL_INTEGER_COLUMN_HPP
+#ifndef CPOSTGRESQL_UUID_COLUMN_HPP
+#define CPOSTGRESQL_UUID_COLUMN_HPP
 
 #include <string>
 #include "icolumn.hpp"
@@ -19,7 +19,10 @@ public:
     {
     }
 
-    std::string format(const uuid& value) const override;
+    [[nodiscard]] std::string format(const uuid& value) const override
+    {
+        return "'" + value + "'";
+    }
 };
 
-#endif //CPOSTGRESQL_INTEGER_COLUMN_HPP
+#endif //CPOSTGRESQL_UUID_COLUMN_HPP

@@ -37,7 +37,7 @@ public:
 
     virtual std::string format(const V& value) const
     {
-        return std::to_string(value);
+        return "";
     }
 };
 

@@ -4,8 +4,4 @@
 
 #include <nekpostgresql/column/uuid.column.hpp>
 
-template <typename TableType>
-std::string UuidColumn<TableType>::format(const uuid& value) const
-{
-    return "'" + value + "'";
-}
+// Реализация перенесена в заголовочный файл

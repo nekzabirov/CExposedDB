@@ -7,11 +7,11 @@
 #include "icolumn.hpp"
 
 template <typename TableType>
-class IntegerColumn final : public Column<TableType, int>
+class IntegerColumn final : public IColumn<TableType, int>
 {
 public:
     explicit IntegerColumn(const char* name)
-        : Column<TableType, int>(name)
+        : IColumn<TableType, int>(name)
     {
     }
 };
