@@ -44,7 +44,7 @@ namespace nekpostgresql::column
             return field.as<V>();
         }
 
-        V parse(const pqxx::row& row) const
+        V parse_row(const pqxx::row& row) const
         {
             return parse(row.at(fullKey()));
         }
