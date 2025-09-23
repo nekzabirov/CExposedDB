@@ -5,27 +5,22 @@
 #include "user.table.hpp"
 #include <iostream>
 
-#include "book.table.hpp"
+#include "user.table.hpp"
+
+#include <nekpostgresql/nek.hpp>
 
 int main()
 {
     std::cout << "=== PostgreSQL C++ ORM Demo ===" << std::endl;
 
-    std::cout << UserTable::getTableName() << " Columns:" << std::endl;
-    for (int i = 0; i < UserTable::column_count; ++i)
-    {
-        const auto& column = UserTable::columns[i];
-        std::cout << "UseTable -> Column: " << column->getName() << std::endl;
-    }
+    sql::QuerySql query;
+    const auto sql = query.select(UserTable::first_name.sql(), UserTable::last_name.sql())
+                          .from(UserTable::TABLE_NAME.data)
+                          .where(UserTable::first_name.sql().iLike("A%"))
+                          .limit(1)
+                          .str();
 
-    std::cout << std::endl;
-
-    std::cout << "BookTable Columns:" << std::endl;
-    for (int i = 0; i < BookTable::column_count; ++i)
-    {
-        const auto& column = BookTable::columns[i];
-        std::cout << "BookTable -> Column: " << column->getName() << std::endl;
-    }
+    std::cout << sql << std::endl;
 
     return 0;
 }

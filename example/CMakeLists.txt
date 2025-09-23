@@ -7,6 +7,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(example main.cpp
         user.table.hpp
-        book.table.hpp)
+)
 
 target_link_libraries(example cExposed)

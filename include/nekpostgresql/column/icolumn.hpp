@@ -1,47 +1,55 @@
-#ifndef CPOSTGRESQL_COLUMN_HPP
-#define CPOSTGRESQL_COLUMN_HPP
+//
+// Created by Nekbakht Zabirov on 23.09.2025.
+//
+
+#pragma once
 
 #include <pqxx/pqxx>
+#include <string>
+#include "nekpostgresql/sql/column.sql.hpp"
 
-namespace nekpostgresql
+namespace nekpostgresql::column
 {
-    template <typename TableType>
-    class ColumnBase
-    {
-    protected:
-        explicit ColumnBase(const char* name) : name_(name)
-        {
-            TableType::registerColumn(this);
-        }
-
-    public:
-        virtual ~ColumnBase() = default;
-        [[nodiscard]] const char* getName() const { return name_; }
-
-    private:
-        const char* name_;
-    };
-
-    template <typename TableType, typename V>
-    class IColumn : public ColumnBase<TableType>
+    template <class TABLE, typename V>
+    class IColumn
     {
     public:
         using value_type = V;
+        using table = TABLE;
+        constexpr static auto TABLE_NAME = TABLE::TABLE_NAME;
 
-        explicit IColumn(const char* name) : ColumnBase<TableType>(name)
+        explicit IColumn(const std::string& key) : key_(key)
         {
         }
 
-        virtual V parse(const pqxx::field& field) const
+        virtual ~IColumn() = default;
+
+        constexpr std::string key() const
+        {
+            return key_;
+        }
+
+        constexpr std::string fullKey() const
+        {
+            return std::string(TABLE_NAME.data) + "." + key_;
+        }
+
+        constexpr sql::ColumnSql sql() const
+        {
+            return sql::ColumnSql(fullKey());
+        }
+
+        static V parse(const pqxx::field& field)
         {
             return field.as<V>();
         }
 
-        virtual std::string format(const V& value) const
+        V parse(const pqxx::row& row) const
         {
-            return "";
+            return parse(row.at(fullKey()));
         }
+
+    private:
+        std::string key_;
     };
 }
-
-#endif //CPOSTGRESQL_COLUMN_HPP

@@ -6,21 +6,17 @@
 #define CPOSTGRESQL_USER_TABLE_HPP
 
 #include <string>
-#include <nekpostgresql/table.hpp>
-#include "nekpostgresql/column/string.column.hpp"
-#include "nekpostgresql/column/integer.column.hpp"
+#include <nekpostgresql/table/itable.hpp>
+#include <nekpostgresql/column/string.column.hpp>
 
 using namespace nekpostgresql;
 
-class UserTable : public Table<UserTable>
+class UserTable : public table::ITable<UserTable, table::fixed_string("users")>
 {
 public:
-    static constexpr std::string tableName = "users";
+    inline static column::StringColumn<UserTable> first_name{"first_name"};
 
-    // Define columns as inline static members - they auto-register in parent's array
-    inline static IntegerColumn<UserTable> id{"id"};
-    inline static StringColumn<UserTable> name{"name"};
-    inline static IntegerColumn<UserTable> age{"age"};
+    inline static column::StringColumn<UserTable> last_name{"last_name"};
 };
 
 #endif //CPOSTGRESQL_USER_TABLE_HPP

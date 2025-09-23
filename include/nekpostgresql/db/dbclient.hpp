@@ -6,7 +6,7 @@
 
 #include <mutex>
 #include <condition_variable>
-#include "nekpostgresql/pqexecutor.hpp"
+#include "pqexecutor.hpp"
 #include <memory>
 #include <queue>
 

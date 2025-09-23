@@ -18,11 +18,7 @@ option(BUILD_EXAMPLES "Build examples" ON)
 add_library(${NAME} STATIC
         src/pqexecutor.cpp
         src/dbclient.cpp
-        src/column/bool.column.cpp
-        src/column/string.column.cpp
-        src/column/timestamp.column.cpp
-        src/column/jsonb.column.cpp
-        src/column/uuid.column.cpp
+        src/sql/query.sql.cpp
 )
 
 # Алиас для удобства
