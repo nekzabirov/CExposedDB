@@ -13,3 +13,4 @@
 #include "nekpostgresql/column/bool.column.hpp"
 #include "nekpostgresql/column/int.column.hpp"
 #include "nekpostgresql/column/float.column.hpp"
+#include "nekpostgresql/column/timespamp.column.hpp"

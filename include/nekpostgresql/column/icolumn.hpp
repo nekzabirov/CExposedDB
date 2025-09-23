@@ -39,7 +39,7 @@ namespace nekpostgresql::column
             return sql::ColumnSql(fullKey());
         }
 
-        static V parse(const pqxx::field& field)
+        virtual V parse(const pqxx::field& field)
         {
             return field.as<V>();
         }
