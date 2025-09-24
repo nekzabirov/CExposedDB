@@ -16,3 +16,17 @@
 #include "nekpostgresql/column/timespamp.column.hpp"
 #include "nekpostgresql/sql/execute.sql.hpp"
 #include "nekpostgresql/sql/value.sql.hpp"
+
+namespace nekpostgresql::sql
+{
+    template <typename... Col>
+    QuerySql select(const Col&... columns)
+    {
+        return QuerySql().select(columns...);
+    }
+
+    inline ExecuteSql insertInto(const std::string& table, const std::initializer_list<ColumnSql>& columns)
+    {
+        return ExecuteSql().insertInto(table, columns);
+    }
+}
