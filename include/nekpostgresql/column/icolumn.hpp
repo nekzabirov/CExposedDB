@@ -24,19 +24,24 @@ namespace nekpostgresql::column
 
         virtual ~IColumn() = default;
 
-        constexpr std::string key() const
+        [[nodiscard]] constexpr std::string key() const
         {
             return key_;
         }
 
-        constexpr std::string fullKey() const
+        [[nodiscard]] constexpr std::string fullKey() const
         {
             return std::string(TABLE_NAME.data) + "." + key_;
         }
 
-        constexpr sql::ColumnSql sql() const
+        [[nodiscard]] constexpr sql::ColumnSql sql() const
         {
             return sql::ColumnSql(fullKey());
+        }
+
+        [[nodiscard]] constexpr sql::ColumnSql sqlShortName() const
+        {
+            return sql::ColumnSql(key());
         }
 
         virtual V parse(const pqxx::field& field)

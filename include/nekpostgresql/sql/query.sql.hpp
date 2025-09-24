@@ -15,8 +15,7 @@ namespace nekpostgresql::sql
     {
     public:
         QuerySql()
-        {
-        }
+        = default;
 
         QuerySql& select(const std::initializer_list<ColumnSql>& columns)
         {

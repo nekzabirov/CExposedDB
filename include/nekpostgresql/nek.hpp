@@ -14,3 +14,5 @@
 #include "nekpostgresql/column/int.column.hpp"
 #include "nekpostgresql/column/float.column.hpp"
 #include "nekpostgresql/column/timespamp.column.hpp"
+#include "nekpostgresql/sql/execute.sql.hpp"
+#include "nekpostgresql/sql/value.sql.hpp"

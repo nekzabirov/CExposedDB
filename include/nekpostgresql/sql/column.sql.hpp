@@ -6,6 +6,7 @@
 
 #include <string>
 #include "sql.hpp"
+#include "value.sql.hpp"
 
 namespace nekpostgresql::sql
 {
@@ -104,19 +105,7 @@ namespace nekpostgresql::sql
         template <typename T>
         void append(const T& value, const std::string& op)
         {
-            *this << " " << op << " " << std::to_string(value);
+            *this << " " << op << " " << value::format(value);
         }
     };
-
-    template <>
-    inline void ColumnSql::append(const std::string& value, const std::string& op)
-    {
-        *this << " " << op << " " << "'" << value << "'";
-    }
-
-    template <>
-    inline void ColumnSql::append(const bool& value, const std::string& op)
-    {
-        *this << " " << op << " " << (value ? "true" : "false");
-    }
 }
