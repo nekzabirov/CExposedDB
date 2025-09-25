@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <optional>
 #include "sql.hpp"
 #include "value.sql.hpp"
 
@@ -69,6 +70,11 @@ namespace nekpostgresql::sql
 
         ColumnSql& operator&&(const ColumnSql& other)
         {
+            if (other.str().empty())
+            {
+                return *this;
+            }
+
             std::stringstream ss;
 
             ss << "(" << str() << " AND " << other.str() << ")";
@@ -80,6 +86,11 @@ namespace nekpostgresql::sql
 
         ColumnSql& operator||(const ColumnSql& other)
         {
+            if (other.str().empty())
+            {
+                return *this;
+            }
+
             std::stringstream ss;
 
             ss << "(" << str() << " OR " << other.str() << ")";
@@ -106,6 +117,18 @@ namespace nekpostgresql::sql
         void append(const T& value, const std::string& op)
         {
             *this << " " << op << " " << value::format(value);
+        }
+
+        template<typename T>
+        void append(const std::optional<T>& value, std::string op)
+        {
+            if (!value.has_value())
+            {
+                this->ss_.clear();
+                return;
+            }
+
+            append(value.value(), op);
         }
     };
 }
