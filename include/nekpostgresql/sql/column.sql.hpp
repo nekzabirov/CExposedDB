@@ -112,6 +112,17 @@ namespace nekpostgresql::sql
             return *this;
         }
 
+        ColumnSql& count()
+        {
+            std::stringstream ss;
+
+            ss << "COUNT(" << str() << ")";
+
+            this->ss_ = std::move(ss);
+
+            return *this;
+        }
+
     private:
         template <typename T>
         void append(const T& value, const std::string& op)
