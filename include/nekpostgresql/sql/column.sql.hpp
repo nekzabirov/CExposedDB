@@ -123,6 +123,13 @@ namespace nekpostgresql::sql
             return *this;
         }
 
+        ColumnSql& as(std::string const& name)
+        {
+            ss_ << " as " << name;
+
+            return *this;
+        }
+
     private:
         template <typename T>
         void append(const T& value, const std::string& op)
