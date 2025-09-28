@@ -8,6 +8,7 @@
 #include <string>
 #include "sql.hpp"
 #include "column.sql.hpp"
+#include <span>
 
 namespace nekpostgresql::sql
 {
@@ -17,7 +18,7 @@ namespace nekpostgresql::sql
         QuerySql()
         = default;
 
-        QuerySql& select(const std::initializer_list<ColumnSql>& columns)
+        QuerySql& select(const std::span<const ColumnSql> columns)
         {
             *this << "SELECT ";
             for (int i = 0; i < columns.size(); i++)
@@ -31,10 +32,15 @@ namespace nekpostgresql::sql
             return *this;
         }
 
-        template <typename... Col>
-        QuerySql& select(const Col&... columns)
+        QuerySql& select(const std::initializer_list<ColumnSql>& columns)
         {
-            return select({columns...});
+            return select(std::span(columns.begin(), columns.size()));
+        }
+
+        template <std::size_t N>
+        QuerySql& select(const std::array<ColumnSql, N>& columns)
+        {
+            return select(std::span<const ColumnSql>(columns.data(), N));
         }
 
         QuerySql& from(const std::string& table)

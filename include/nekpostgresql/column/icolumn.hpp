@@ -7,6 +7,7 @@
 #include <pqxx/pqxx>
 #include <string>
 #include "nekpostgresql/sql/column.sql.hpp"
+#include "nekpostgresql/sql/value.sql.hpp"
 
 namespace nekpostgresql::column
 {
@@ -44,9 +45,9 @@ namespace nekpostgresql::column
             return sql::ColumnSql(key());
         }
 
-        virtual V parse(const pqxx::field& field)
+        V parse(const pqxx::field& field) const
         {
-            return field.as<V>();
+            return sql::value::parse<V>(field);
         }
 
         V parse_row(const pqxx::row& row) const

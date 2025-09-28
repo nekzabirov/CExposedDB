@@ -29,7 +29,7 @@ namespace nekpostgresql::sql
         template <typename T>
         ColumnSql& operator==(const T& value)
         {
-            *this->append(value, "=");
+            this->append(value, "=");
             return *this;
         }
 
