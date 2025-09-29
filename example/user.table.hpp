@@ -6,12 +6,13 @@
 #define CPOSTGRESQL_USER_TABLE_HPP
 
 #include <string>
-#include <nekpostgresql/table/itable.hpp>
-#include <nekpostgresql/column/string.column.hpp>
+
+#include "nekpostgresql/schema/column/string.column.hpp"
+#include "nekpostgresql/schema/table/itable.hpp"
 
 using namespace nekpostgresql;
 
-class UserTable : public table::ITable<UserTable, table::fixed_string("users")>
+class UserTable : public table::ITable<UserTable, 2, table::fixed_string("users")>
 {
 public:
     inline static column::StringColumn<UserTable> first_name{"first_name"};

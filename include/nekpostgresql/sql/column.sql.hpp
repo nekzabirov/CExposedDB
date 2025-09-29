@@ -26,6 +26,36 @@ namespace nekpostgresql::sql
             return *this;
         }
 
+        ColumnSql& count()
+        {
+            std::stringstream ss;
+
+            ss << "COUNT(" << str() << ")";
+
+            this->ss_ = std::move(ss);
+
+            return *this;
+        }
+
+        ColumnSql& as(std::string const& name)
+        {
+            ss_ << " as " << name;
+
+            return *this;
+        }
+
+        ColumnSql& iLike(const std::string& value)
+        {
+            *this << " ILIKE " << "'" << value << "'";
+            return *this;
+        }
+
+        ColumnSql& like(const std::string& value)
+        {
+            *this << " LIKE " << "'" << value << "'";
+            return *this;
+        }
+
         template <typename T>
         ColumnSql& operator==(const T& value)
         {
@@ -100,36 +130,6 @@ namespace nekpostgresql::sql
             return *this;
         }
 
-        ColumnSql& iLike(const std::string& value)
-        {
-            *this << " ILIKE " << "'" << value << "'";
-            return *this;
-        }
-
-        ColumnSql& like(const std::string& value)
-        {
-            *this << " LIKE " << "'" << value << "'";
-            return *this;
-        }
-
-        ColumnSql& count()
-        {
-            std::stringstream ss;
-
-            ss << "COUNT(" << str() << ")";
-
-            this->ss_ = std::move(ss);
-
-            return *this;
-        }
-
-        ColumnSql& as(std::string const& name)
-        {
-            ss_ << " as " << name;
-
-            return *this;
-        }
-
     private:
         template <typename T>
         void append(const T& value, const std::string& op)
@@ -137,7 +137,7 @@ namespace nekpostgresql::sql
             *this << " " << op << " " << value::format(value);
         }
 
-        template<typename T>
+        template <typename T>
         void append(const std::optional<T>& value, std::string op)
         {
             if (!value.has_value())

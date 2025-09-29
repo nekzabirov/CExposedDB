@@ -6,13 +6,13 @@
 
 #include <initializer_list>
 #include <string>
+#include <span>
 #include "sql.hpp"
 #include "column.sql.hpp"
-#include <span>
 
 namespace nekpostgresql::sql
 {
-    class QuerySql : public Sql
+    class QuerySql final : public Sql
     {
     public:
         QuerySql()
@@ -38,7 +38,7 @@ namespace nekpostgresql::sql
         }
 
         template <std::size_t N>
-        QuerySql& select(const std::array<ColumnSql, N>& columns)
+        QuerySql& select(const std::array<const ColumnSql*, N>& columns)
         {
             return select(std::span<const ColumnSql>(columns.data(), N));
         }

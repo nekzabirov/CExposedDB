@@ -8,7 +8,7 @@
 namespace nekpostgresql::column
 {
     template <class TABLE>
-    class FloatColumn final : public IColumn<TABLE, bool>
+    class FloatColumn final : public IColumn<TABLE, float>
     {
     public:
         explicit FloatColumn(const std::string& key) : IColumn<TABLE, bool>(key)

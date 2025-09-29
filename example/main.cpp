@@ -13,10 +13,15 @@ int main()
 {
     std::cout << "=== PostgreSQL C++ ORM Demo ===" << std::endl;
 
+    for (const auto columns : UserTable::COLUMNS)
+    {
+        std::cout << columns->fullKey() << std::endl;
+    }
+
     sql::QuerySql query;
-    const auto sql = query.select(UserTable::first_name.sql(), UserTable::last_name.sql())
+    const auto sql = query.select<UserTable::COLUMN_SIZE>(UserTable::COLUMNS)
                           .from(UserTable::TABLE_NAME.data)
-                          .where(UserTable::first_name.sql().iLike("A%"))
+                          .where(UserTable::first_name.iLike("A%"))
                           .limit(1)
                           .str();
 

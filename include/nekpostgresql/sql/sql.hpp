@@ -8,6 +8,7 @@ namespace nekpostgresql::sql
     class Sql
     {
     public:
+        virtual ~Sql() = default;
         Sql() = default;
 
         Sql(const Sql& other)
