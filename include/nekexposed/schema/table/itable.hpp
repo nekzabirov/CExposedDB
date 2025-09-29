@@ -43,7 +43,7 @@ namespace nekexposed::table
 
         inline static std::array<const column::IColumnBase<T>*, NCols> COLUMNS{}; // zero-initialized
 
-        const std::string& name() const override
+        std::string name() const override
         {
             return TABLE_NAME;
         }

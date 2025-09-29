@@ -17,7 +17,7 @@ namespace nekexposed::sql
         {
         }
 
-        [[nodiscard]] virtual const std::string& name() const
+        [[nodiscard]] virtual std::string name() const
         {
             return name_;
         }
