@@ -6,7 +6,7 @@
 #include <string>
 #include <string_view>
 #include <array>
-#include "nekpostgresql/sql/table.sql.hpp"
+#include "nekpostgresql/sql/table.hpp"
 #include "nekpostgresql/schema/column/icolumn.hpp"
 
 namespace nekpostgresql::table
@@ -35,18 +35,23 @@ namespace nekpostgresql::table
     fixed_string(const char (&)[N]) -> fixed_string<N>;
 
     template <typename T, size_t NCols, fixed_string NAME>
-    class ITable : public sql::TableSql
+    class ITable : public sql::Table
     {
     public:
-        static constexpr auto TABLE_NAME = NAME;
+        static constexpr auto TABLE_NAME = NAME.data;
         static constexpr auto COLUMN_SIZE = NCols;
 
         inline static std::array<const column::IColumnBase<T>*, NCols> COLUMNS{}; // zero-initialized
 
-        std::string getName() const override
+        std::string getName() const
         {
             auto sv = TABLE_NAME.view();
             return std::string(sv.data(), sv.size());
+        }
+
+        const std::string& name() const override
+        {
+            return getName();
         }
 
     private:

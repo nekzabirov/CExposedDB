@@ -6,20 +6,20 @@
 
 #include <string>
 #include <utility>
-#include "nekpostgresql/sql/column.sql.hpp"
+#include "nekpostgresql/sql/column.hpp"
 
 namespace nekpostgresql::column
 {
     template <class TABLE>
-    class IColumnBase : public sql::ColumnSql
+    class IColumnBase : public sql::Column
     {
     public:
-        explicit IColumnBase(std::string key) : ColumnSql(key), key_(std::move(key))
+        explicit IColumnBase(std::string key) : Column(key), key_(std::move(key))
         {
             TABLE::registerColumn(this);
         }
 
-        virtual ~IColumnBase() = default;
+        ~IColumnBase() override = default;
 
         [[nodiscard]] constexpr std::string key() const
         {

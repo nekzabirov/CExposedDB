@@ -11,7 +11,7 @@ namespace nekpostgresql::column
     class IntColumn final : public IColumn<TABLE, int>
     {
     public:
-        explicit IntColumn(const std::string& key) : IColumn<TABLE, bool>(key)
+        explicit IntColumn(const std::string& key) : IColumn<TABLE, int>(key)
         {
         }
     };

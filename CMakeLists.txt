@@ -18,7 +18,6 @@ option(BUILD_EXAMPLES "Build examples" ON)
 add_library(${NAME} STATIC
         src/pqexecutor.cpp
         src/dbclient.cpp
-        src/sql/query.sql.cpp
 )
 
 # Алиас для удобства
