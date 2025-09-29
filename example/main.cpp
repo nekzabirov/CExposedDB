@@ -28,7 +28,7 @@ int main()
 
     {
         const auto query = sql::select()
-                       .select(UserTable::ID, UserTable::FIRST_NAME, UserTable::LAST_NAME, UserTable::AGE)
+                       .select(UserTable::COLUMNS)
                        .from<UserTable>()
                        .where(UserTable::AGE > 18)
                        .order_by(UserTable::FIRST_NAME, sql::SortDirection::ASC)
