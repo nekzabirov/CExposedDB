@@ -7,6 +7,7 @@
 #include <string>
 #include <utility>
 #include "nekexposed/sql/column.hpp"
+#include "nekexposed/db/pq.field.decorator.hpp"
 
 namespace nekexposed::column
 {
@@ -36,7 +37,7 @@ namespace nekexposed::column
     };
 
     template <class TABLE, typename V>
-    class IColumn : public IColumnBase<TABLE>
+    class IColumn : public IColumnBase<TABLE>, public db::PQParser<V>
     {
     public:
         using value_type = V;
@@ -51,5 +52,10 @@ namespace nekexposed::column
 
     private:
         std::string key_;
+
+        [[nodiscard]] std::string getKey() const override
+        {
+            return key_;
+        }
     };
 }

@@ -23,6 +23,9 @@
 
 #include "nekexposed/db/dbclient.hpp"
 #include "nekexposed/db/pq.connection.decorator.hpp"
+#include "nekexposed/db/pq.field.decorator.hpp"
+
+#include "nekexposed/value/timestamp.value.hpp"
 
 namespace nekexposed::sql
 {
