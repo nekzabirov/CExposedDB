@@ -7,7 +7,7 @@
 #include <vector>
 #include <array>
 
-namespace nekpostgresql::sql
+namespace nekexposed::sql
 {
     // Класс представляющий колонку в SQL запросе
     class Column : public SqlExpression
@@ -268,4 +268,4 @@ namespace nekpostgresql::sql
     {
         return Column("COUNT(*)");
     }
-} // namespace nekpostgresql::sql
+} // namespace nekexposed::sql

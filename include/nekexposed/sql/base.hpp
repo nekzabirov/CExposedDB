@@ -5,7 +5,7 @@
 #include <string_view>
 #include <memory>
 
-namespace nekpostgresql::sql
+namespace nekexposed::sql
 {
     // Базовый класс для всех SQL выражений
     class SqlExpression
@@ -48,4 +48,4 @@ namespace nekpostgresql::sql
 
         mutable std::stringstream buffer_;
     };
-} // namespace nekpostgresql::sql
+} // namespace nekexposed::sql

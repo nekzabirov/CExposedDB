@@ -24,7 +24,7 @@
 #include "nekexposed/db/dbclient.hpp"
 #include "nekexposed/db/pq.connection.decorator.hpp"
 
-namespace nekpostgresql::sql
+namespace nekexposed::sql
 {
 
 }

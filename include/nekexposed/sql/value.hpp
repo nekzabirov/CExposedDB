@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace nekpostgresql::sql {
+namespace nekexposed::sql {
 
 // Класс для форматирования значений в SQL
 class Value {
@@ -121,4 +121,4 @@ inline constexpr Null null_value{};
 inline constexpr Default default_value{};
 inline constexpr CurrentTimestamp current_timestamp{};
 inline constexpr CurrentDate current_date{};
-} // namespace nekpostgresql::sql
+} // namespace nekexposed::sql

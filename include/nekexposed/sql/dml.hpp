@@ -8,7 +8,7 @@
 #include <tuple>
 #include <stdexcept>
 
-namespace nekpostgresql::sql
+namespace nekexposed::sql
 {
     // Класс для INSERT операций
     class Insert final : public SqlExpression
@@ -284,4 +284,4 @@ namespace nekpostgresql::sql
     {
         return Insert{};
     }
-} // namespace nekpostgresql::sql
+} // namespace nekexposed::sql

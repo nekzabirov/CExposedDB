@@ -6,7 +6,7 @@
 #include <string>
 #include <stdexcept>
 
-namespace nekpostgresql::sql {
+namespace nekexposed::sql {
 
 // Типы JOIN операций
 enum class JoinType {
@@ -266,4 +266,4 @@ private:
     return Select{};
 }
 
-} // namespace nekpostgresql::sql
+} // namespace nekexposed::sql

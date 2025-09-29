@@ -5,7 +5,7 @@
 #pragma once
 #include "icolumn.hpp"
 
-namespace nekpostgresql::column
+namespace nekexposed::column
 {
     template <class TABLE>
     class StringColumn final : public IColumn<TABLE, std::string>

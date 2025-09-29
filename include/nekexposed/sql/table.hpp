@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-namespace nekpostgresql::sql
+namespace nekexposed::sql
 {
     // Базовый класс для таблиц
     class Table : public SqlExpression
@@ -34,4 +34,4 @@ namespace nekpostgresql::sql
     protected:
         std::string name_;
     };
-} // namespace nekpostgresql::sql
+} // namespace nekexposed::sql

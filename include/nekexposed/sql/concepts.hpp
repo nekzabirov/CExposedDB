@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <ranges>
 
-namespace nekpostgresql::sql::concepts {
+namespace nekexposed::sql::concepts {
 
 // Концепт для типов, которые можно сериализовать в SQL
 template<typename T>
@@ -31,4 +31,4 @@ concept Nullable = requires(T t) {
     { t.value() };
 };
 
-} // namespace nekpostgresql::sql::concepts
+} // namespace nekexposed::sql::concepts

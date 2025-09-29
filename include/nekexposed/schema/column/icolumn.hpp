@@ -8,7 +8,7 @@
 #include <utility>
 #include "nekexposed/sql/column.hpp"
 
-namespace nekpostgresql::column
+namespace nekexposed::column
 {
     template <class TABLE>
     class IColumnBase : public sql::Column

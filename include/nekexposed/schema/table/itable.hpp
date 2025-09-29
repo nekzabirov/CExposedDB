@@ -9,7 +9,7 @@
 #include "nekexposed/sql/table.hpp"
 #include "nekexposed/schema/column/icolumn.hpp"
 
-namespace nekpostgresql::table
+namespace nekexposed::table
 {
     template <size_t N>
     struct fixed_string

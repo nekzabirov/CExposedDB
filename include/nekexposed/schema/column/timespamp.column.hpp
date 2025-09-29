@@ -6,7 +6,7 @@
 #include "icolumn.hpp"
 #include <chrono>
 
-namespace nekpostgresql::column
+namespace nekexposed::column
 {
     using timestamp = std::chrono::system_clock::time_point;
 

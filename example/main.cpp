@@ -6,9 +6,9 @@
 
 #include <nekexposed/nek.hpp>
 
-using namespace nekpostgresql;
+using namespace nekexposed;
 
-using namespace nekpostgresql;
+using namespace nekexposed;
 
 class UserTable final : public table::ITable<UserTable, 4, table::fixed_string("users")>
 {
