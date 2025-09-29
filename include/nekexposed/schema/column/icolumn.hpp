@@ -6,7 +6,7 @@
 
 #include <string>
 #include <utility>
-#include "nekpostgresql/sql/column.hpp"
+#include "nekexposed/sql/column.hpp"
 
 namespace nekpostgresql::column
 {

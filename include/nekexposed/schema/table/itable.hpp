@@ -6,8 +6,8 @@
 #include <string>
 #include <string_view>
 #include <array>
-#include "nekpostgresql/sql/table.hpp"
-#include "nekpostgresql/schema/column/icolumn.hpp"
+#include "nekexposed/sql/table.hpp"
+#include "nekexposed/schema/column/icolumn.hpp"
 
 namespace nekpostgresql::table
 {

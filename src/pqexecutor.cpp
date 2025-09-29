@@ -2,7 +2,7 @@
 // Created by Nekbakht Zabirov on 13.09.2025.
 //
 
-#include <../include/nekpostgresql/db/pqexecutor.hpp>
+#include <../include/nekexposed/db/pqexecutor.hpp>
 
 namespace nekpostgresql
 {

@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "../include/nekpostgresql/db/dbclient.hpp"
+#include "../include/nekexposed/db/dbclient.hpp"
 
 namespace nekpostgresql
 {

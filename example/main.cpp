@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include <nekpostgresql/nek.hpp>
+#include <nekexposed/nek.hpp>
 
 using namespace nekpostgresql;
 
