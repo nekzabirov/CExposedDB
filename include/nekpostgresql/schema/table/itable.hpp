@@ -43,15 +43,9 @@ namespace nekpostgresql::table
 
         inline static std::array<const column::IColumnBase<T>*, NCols> COLUMNS{}; // zero-initialized
 
-        std::string getName() const
-        {
-            auto sv = TABLE_NAME.view();
-            return std::string(sv.data(), sv.size());
-        }
-
         const std::string& name() const override
         {
-            return getName();
+            return TABLE_NAME;
         }
 
     private:
