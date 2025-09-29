@@ -21,6 +21,7 @@
 
 #include "nekexposed/schema/table/itable.hpp"
 
+#include "nekexposed/db/pq.connection.decorator.hpp"
 
 namespace nekpostgresql::sql
 {

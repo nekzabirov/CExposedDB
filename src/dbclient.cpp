@@ -6,9 +6,9 @@
 
 #include "../include/nekexposed/db/dbclient.hpp"
 
-namespace nekpostgresql
+namespace nekpostgresql::db
 {
-    std::unique_ptr<PQExecutor> DBClient::createExecutor()
+    std::unique_ptr<PQConnectionDecorator> DBClient::getConn()
     {
         std::unique_lock lock(mutex);
 
@@ -18,7 +18,7 @@ namespace nekpostgresql
         connections.pop();
 
         auto callback = [this](pqxx::connection* c) { this->pushConnection(c); };
-        return std::make_unique<PQExecutor>(conn, std::move(callback));
+        return std::make_unique<PQConnectionDecorator>(conn, std::move(callback));
     }
 
     DBClient::DBClient(const std::string& dbUrl, const int maxPoolSize)

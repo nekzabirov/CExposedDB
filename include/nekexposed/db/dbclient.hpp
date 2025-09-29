@@ -6,11 +6,12 @@
 
 #include <mutex>
 #include <condition_variable>
-#include "pqexecutor.hpp"
+#include <pqxx/pqxx>
 #include <memory>
 #include <queue>
+#include "pq.connection.decorator.hpp"
 
-namespace nekpostgresql
+namespace nekpostgresql::db
 {
     namespace constants
     {
@@ -40,7 +41,7 @@ namespace nekpostgresql
             return instance;
         }
 
-        std::unique_ptr<PQExecutor> createExecutor();
+        std::unique_ptr<PQConnectionDecorator> getConn();
 
     private:
         explicit DBClient(const std::string& dbUrl, int maxPoolSize = 10);

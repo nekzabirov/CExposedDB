@@ -16,7 +16,6 @@ option(BUILD_EXAMPLES "Build examples" ON)
 
 # Создание библиотеки
 add_library(${NAME} STATIC
-        src/pqexecutor.cpp
         src/dbclient.cpp
 )
 
