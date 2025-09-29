@@ -6,7 +6,7 @@
 
 #include "../include/nekexposed/db/dbclient.hpp"
 
-namespace nekpostgresql::db
+namespace nekexposed::db
 {
     std::unique_ptr<PQConnectionDecorator> DBClient::getConn()
     {

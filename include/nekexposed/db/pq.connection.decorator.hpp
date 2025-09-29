@@ -7,7 +7,7 @@
 #include <pqxx/pqxx>
 #include <memory>
 
-namespace nekpostgresql::db
+namespace nekexposed::db
 {
     using callback_t = std::function<void(pqxx::connection*)>;
 

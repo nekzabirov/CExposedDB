@@ -11,7 +11,7 @@
 #include <queue>
 #include "pq.connection.decorator.hpp"
 
-namespace nekpostgresql::db
+namespace nekexposed::db
 {
     namespace constants
     {
