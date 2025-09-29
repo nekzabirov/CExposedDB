@@ -10,34 +10,32 @@
 
 namespace nekexposed::db
 {
-    template <typename T>
+    /*template <typename T>
     class PQFieldDecorator
     {
     public:
-        explicit PQFieldDecorator(pqxx::field field) : field_(std::move(field)) {}
+        // Accept field from const rows too
+        explicit PQFieldDecorator(pqxx::field& field) : field_(field)
+        {
+        }
 
-        std::optional<T> as(const std::string& key) const
+        [[nodiscard]] std::optional<T> as() const
         {
             if (field_.is_null()) return std::nullopt;
 
-            return field_.as<T>(key);
-        }
-
-        std::optional<T> operator[](const std::string& key) const
-        {
-            return as(key);
+            return field_.as<T>();
         }
 
     private:
-        pqxx::field field_;
-    };
+        pqxx::field& field_;
+    };*/
 
-    template<>
-    inline std::optional<value::Timestamp> PQFieldDecorator<value::Timestamp>::as(const std::string&) const
+    /*template<>
+    inline std::optional<value::Timestamp> PQFieldDecorator<value::Timestamp>::as() const
     {
         const auto str = field_.as<std::string>();
         return value::parse(str);
-    }
+    }*/
 
     template <typename T>
     class PQParser
@@ -47,12 +45,34 @@ namespace nekexposed::db
 
         std::optional<T> parse(const pqxx::row& row) const
         {
-            const auto field = row.at(getKey());
+            const pqxx::field field = row.at(getKey());
 
-            return PQFieldDecorator<T>(field).as(getKey());
+            if (field.is_null()) return std::nullopt;
+
+            return field.as<T>();
+        }
+
+        void parse(const pqxx::row& row, T& result) const
+        {
+            if (const auto res = parse(row); res.has_value())
+            {
+                result = res.value();
+            }
         }
 
     private:
         [[nodiscard]] std::string virtual getKey() const = 0;
     };
+
+    template<>
+    inline std::optional<value::Timestamp> PQParser<value::Timestamp>::parse(const pqxx::row& row) const
+    {
+        const pqxx::field field = row.at(getKey());
+
+        if (field.is_null()) return std::nullopt;
+
+        const auto str = field.as<std::string>();
+
+        return value::parse(str);
+    }
 }
