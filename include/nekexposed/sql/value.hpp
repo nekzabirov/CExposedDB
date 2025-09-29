@@ -15,6 +15,12 @@ namespace nekexposed::sql {
 // Класс для форматирования значений в SQL
 class Value {
 public:
+    template<typename T>
+    [[nodiscard]] static std::string format(T value)
+    {
+        return std::to_string(value);
+    }
+
     // Числовые типы
     template<std::integral T>
     [[nodiscard]] static std::string format(T value) {
@@ -35,7 +41,7 @@ public:
         return escape_string(value);
     }
     
-    [[nodiscard]] static std::string format(std::string_view value) {
+    [[nodiscard]] static std::string format(const std::string_view value) {
         return escape_string(std::string(value));
     }
     

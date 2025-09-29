@@ -14,6 +14,11 @@ namespace nekexposed::sql
         SqlExpression() = default;
         virtual ~SqlExpression() = default;
 
+        SqlExpression(const SqlExpression& other) : buffer_(other.buffer_.str())
+        {
+        }
+
+
         // Основной метод для получения SQL строки
         [[nodiscard]] virtual std::string to_sql() const
         {

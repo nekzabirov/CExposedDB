@@ -30,7 +30,7 @@ int main()
         const auto query = sql::select()
                        .select(UserTable::COLUMNS)
                        .from<UserTable>()
-                       .where(UserTable::AGE > 18)
+                       .where(UserTable::AGE > 18 && UserTable::AGE < 30 && (UserTable::FIRST_NAME == "John" || UserTable::LAST_NAME == "Smith"))
                        .order_by(UserTable::FIRST_NAME, sql::SortDirection::ASC)
                        .limit(10)
                        .to_sql();
@@ -44,7 +44,8 @@ int main()
                  .values("Jane", "Smith", 13)
                  .on_conflict(UserTable::FIRST_NAME)
                  .do_update_set(
-                     UserTable::LAST_NAME == "Updated"
+                     UserTable::LAST_NAME == "Updated",
+                     UserTable::AGE == 24
                  )
                  .returning_all()
                  .to_sql();

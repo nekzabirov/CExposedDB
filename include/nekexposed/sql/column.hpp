@@ -4,8 +4,6 @@
 #include "value.hpp"
 #include "concepts.hpp"
 #include <string>
-#include <vector>
-#include <array>
 
 namespace nekexposed::sql
 {
@@ -20,60 +18,224 @@ namespace nekexposed::sql
         }
 
         template <typename T>
-        [[nodiscard]] Column& operator=(const T& value)
+        [[nodiscard]] Column operator=(const T& value)
         {
-            append(" = ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" = ");
+            tmp.append(Value::format(value));
+            return tmp;
         }
 
         // Операторы сравнения
         template <typename T>
-        [[nodiscard]] Column& operator==(const T& value)
+        [[nodiscard]] Column operator==(const T& value)
         {
-            append(" = ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" = ");
+            tmp.append(Value::format(value));
+            return tmp;
         }
 
         template <typename T>
-        [[nodiscard]] Column& operator!=(const T& value)
+        [[nodiscard]] Column operator!=(const T& value)
         {
-            append(" != ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" != ");
+            tmp.append(Value::format(value));
+            return tmp;
         }
 
         template <typename T>
-        [[nodiscard]] Column& operator<(const T& value)
+        [[nodiscard]] Column operator<(const T& value)
         {
-            append(" < ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" != ");
+            tmp.append(Value::format(value));
+            return tmp;
         }
 
         template <typename T>
-        [[nodiscard]] Column& operator<=(const T& value)
+        [[nodiscard]] Column operator<=(const T& value)
         {
-            append(" <= ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" <= ");
+            tmp.append(Value::format(value));
+            return tmp;
         }
 
         template <typename T>
-        [[nodiscard]] Column& operator>(const T& value)
+        [[nodiscard]] Column operator>(const T& value)
         {
-            append(" > ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" > ");
+            tmp.append(Value::format(value));
+            return tmp;
         }
 
         template <typename T>
-        [[nodiscard]] Column& operator>=(const T& value)
+        [[nodiscard]] Column operator>=(const T& value)
         {
-            append(" >= ");
-            append(Value::format(value));
-            return *this;
+            Column tmp(name_);
+            tmp.append(" >= ");
+            tmp.append(Value::format(value));
+            return tmp;
+        }
+
+        // Pattern matching
+        [[nodiscard]] Column like(const std::string_view pattern) const
+        {
+            Column tmp(name_);
+            tmp.append(" LIKE ");
+            tmp.append(Value::format(pattern));
+            return tmp;
+        }
+
+        [[nodiscard]] Column ilike(const std::string_view pattern) const
+        {
+            Column tmp(name_);
+            tmp.append(" ILIKE ");
+            tmp.append(Value::format(pattern));
+            return tmp;
+        }
+
+        // NULL проверки
+        [[nodiscard]] Column is_null() const
+        {
+            Column tmp(name_);
+            tmp.append(" IS NULL");
+            return tmp;
+        }
+
+        [[nodiscard]] Column is_not_null() const
+        {
+            Column tmp(name_);
+            tmp.append(" IS NOT NULL");
+            return tmp;
+        }
+
+        // IN оператор
+        template <typename Container>
+            requires concepts::Container<Container>
+        [[nodiscard]] Column in(const Container& values)
+        {
+            Column tmp(name_);
+
+            tmp.append(" IN (");
+
+            bool first = true;
+            for (const auto& val : values)
+            {
+                if (!first) tmp.append(", ");
+                first = false;
+                tmp.append(Value::format(val));
+            }
+
+            tmp.append(")");
+
+            return tmp;
+        }
+
+        // BETWEEN оператор
+        template <typename T>
+        [[nodiscard]] Column between(const T& lower, const T& upper)
+        {
+            Column tmp(name_);
+            tmp.append(" BETWEEN ");
+            tmp.append(Value::format(lower));
+            tmp.append(" AND ");
+            tmp.append(Value::format(upper));
+            return tmp;
+        }
+
+        // Агрегатные функции
+        [[nodiscard]] Column count() const
+        {
+            Column tmp(name_);
+            tmp.append("COUNT(");
+            tmp.append(name_);
+            tmp.append(")");
+            return tmp;
+        }
+
+        [[nodiscard]] Column sum() const
+        {
+            Column tmp(name_);
+            tmp.append("SUM(");
+            tmp.append(name_);
+            tmp.append(")");
+            return tmp;
+        }
+
+        [[nodiscard]] Column avg() const
+        {
+            Column tmp(name_);
+            tmp.append("AVG(");
+            tmp.append(name_);
+            tmp.append(")");
+            return tmp;
+        }
+
+        [[nodiscard]] Column min() const
+        {
+            Column tmp(name_);
+            tmp.append("MIN(");
+            tmp.append(name_);
+            tmp.append(")");
+            return tmp;
+        }
+
+        [[nodiscard]] Column max() const
+        {
+            Column tmp(name_);
+            tmp.append("MAX(");
+            tmp.append(name_);
+            tmp.append(")");
+            return tmp;
+        }
+
+        // DISTINCT
+        [[nodiscard]] Column distinct() const
+        {
+            Column tmp(name_);
+            tmp.append("DISTINCT ");
+            tmp.append(name_);
+            return tmp;
+        }
+
+        // AS (алиас)
+        [[nodiscard]] Column as(const std::string_view alias) const
+        {
+            Column tmp(name_);
+            tmp.append(" AS ");
+            tmp.append(alias);
+            return tmp;
+        }
+
+        // CAST
+        [[nodiscard]] Column cast(const std::string_view type) const
+        {
+            Column tmp(name_);
+            tmp.append("CAST(");
+            tmp.append(name_);
+            tmp.append(" AS ");
+            tmp.append(type);
+            tmp.append(")");
+            return tmp;
+        }
+
+        // DESC/ASC для ORDER BY
+        [[nodiscard]] Column asc() const
+        {
+            Column tmp(name_);
+            tmp.append(" ASC");
+            return tmp;
+        }
+
+        [[nodiscard]] Column desc() const
+        {
+            Column tmp(name_);
+            tmp.append(" DESC");
+            return tmp;
         }
 
         // Логические операторы
@@ -82,11 +244,16 @@ namespace nekexposed::sql
             if (other.empty()) return *this;
             if (this->empty()) return *this;
 
+            const auto str = this->to_sql();
+
+            clear();
+
             append("(");
-            append(this->to_sql());
+            append(str);
             append(" AND ");
             append(other.to_sql());
             append(")");
+
             return *this;
         }
 
@@ -95,150 +262,16 @@ namespace nekexposed::sql
             if (other.empty()) return *this;
             if (this->empty()) return *this;
 
+            const auto str = this->to_sql();
+
+            clear();
+
             append("(");
-            append(this->to_sql());
-            append(" OR ");
+            append(str);
+            append(" || ");
             append(other.to_sql());
             append(")");
-            return *this;
-        }
 
-        // Pattern matching
-        [[nodiscard]] Column& like(const std::string_view pattern)
-        {
-            append(" LIKE ");
-            append(Value::format(pattern));
-            return *this;
-        }
-
-        [[nodiscard]] Column& ilike(std::string_view pattern)
-        {
-            append(" ILIKE ");
-            append(Value::format(pattern));
-            return *this;
-        }
-
-        // NULL проверки
-        [[nodiscard]] Column& is_null()
-        {
-            append(" IS NULL");
-            return *this;
-        }
-
-        [[nodiscard]] Column& is_not_null()
-        {
-            append(" IS NOT NULL");
-            return *this;
-        }
-
-        // IN оператор
-        template <typename Container>
-            requires concepts::Container<Container>
-        [[nodiscard]] Column& in(const Container& values)
-        {
-            append(" IN (");
-
-            bool first = true;
-            for (const auto& val : values)
-            {
-                if (!first) append(", ");
-                first = false;
-                append(Value::format(val));
-            }
-
-            append(")");
-            return *this;
-        }
-
-        // BETWEEN оператор
-        template <typename T>
-        [[nodiscard]] Column& between(const T& lower, const T& upper)
-        {
-            append(" BETWEEN ");
-            append(Value::format(lower));
-            append(" AND ");
-            append(Value::format(upper));
-            return *this;
-        }
-
-        // Агрегатные функции
-        [[nodiscard]] Column& count()
-        {
-            append("COUNT(");
-            append(this->to_sql());
-            append(")");
-            return *this;
-        }
-
-        [[nodiscard]] Column& sum()
-        {
-            append("SUM(");
-            append(this->to_sql());
-            append(")");
-            return *this;
-        }
-
-        [[nodiscard]] Column& avg()
-        {
-            append("AVG(");
-            append(this->to_sql());
-            append(")");
-            return *this;
-        }
-
-        [[nodiscard]] Column& min()
-        {
-            append("MIN(");
-            append(this->to_sql());
-            append(")");
-            return *this;
-        }
-
-        [[nodiscard]] Column& max()
-        {
-            append("MAX(");
-            append(this->to_sql());
-            append(")");
-            return *this;
-        }
-
-        // DISTINCT
-        [[nodiscard]] Column& distinct()
-        {
-            append("DISTINCT ");
-            append(this->to_sql());
-            return *this;
-        }
-
-        // AS (алиас)
-        [[nodiscard]] Column& as(const std::string_view alias)
-        {
-            append(" AS ");
-            append(alias);
-            return *this;
-        }
-
-        // CAST
-        [[nodiscard]] Column& cast(const std::string_view type)
-        {
-            append("CAST(");
-            append(this->to_sql());
-            append(" AS ");
-            append(type);
-            append(")");
-            return *this;
-        }
-
-        // DESC/ASC для ORDER BY
-        [[nodiscard]] Column& asc()
-        {
-            append(" ASC");
-            return *this;
-        }
-
-        [[nodiscard]] Column& desc()
-        {
-            append(" DESC");
             return *this;
         }
 
