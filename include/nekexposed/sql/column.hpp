@@ -18,84 +18,57 @@ namespace nekexposed::sql
         }
 
         template <typename T>
-        [[nodiscard]] Column operator=(const T& value)
+        Column& operator=(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" = ");
-            tmp.append(value::format(value));
-            return tmp;
+            return std::move(apply(value, "="));
         }
 
         // Операторы сравнения
         template <typename T>
         [[nodiscard]] Column operator==(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" = ");
-            tmp.append(value::format(value));
-            return tmp;
+            return apply(value, "=");
         }
 
         template <typename T>
         [[nodiscard]] Column operator!=(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" != ");
-            tmp.append(value::format(value));
-            return tmp;
+            return apply(value, "!=");
         }
 
         template <typename T>
         [[nodiscard]] Column operator<(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" != ");
-            tmp.append(value::format(value));
-            return tmp;
+            return apply(value, "<");
         }
 
         template <typename T>
         [[nodiscard]] Column operator<=(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" <= ");
-            tmp.append(value::format(value));
-            return tmp;
+            return apply(value, "<=");
         }
 
         template <typename T>
         [[nodiscard]] Column operator>(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" > ");
-            tmp.append(value::format(value));
-            return tmp;
+            return apply(value, ">");
         }
 
         template <typename T>
         [[nodiscard]] Column operator>=(const T& value)
         {
-            Column tmp(name_);
-            tmp.append(" >= ");
-            tmp.append(value::format(value));
-            return tmp;
+            return apply(value, ">=");
         }
 
         // Pattern matching
         [[nodiscard]] Column like(const std::string_view pattern) const
         {
-            Column tmp(name_);
-            tmp.append(" LIKE ");
-            tmp.append(value::format(pattern));
-            return tmp;
+            return apply(pattern, "like");
         }
 
         [[nodiscard]] Column ilike(const std::string_view pattern) const
         {
-            Column tmp(name_);
-            tmp.append(" ILIKE ");
-            tmp.append(value::format(pattern));
-            return tmp;
+            return apply(pattern, "ilike");
         }
 
         // NULL проверки
@@ -283,6 +256,29 @@ namespace nekexposed::sql
 
     private:
         std::string name_;
+
+        template <typename T>
+        [[nodiscard]] Column apply(const T& value, const std::string_view op = "=") const
+        {
+            Column tmp(name_);
+            tmp.append(" ");
+            tmp.append(op);
+            tmp.append(" ");
+            tmp.append(value::format(value));
+            return tmp;
+        }
+
+        template <typename T>
+        [[nodiscard]] Column apply(const std::optional<T> value, const std::string_view op = "=") const
+        {
+            if (value.has_value())
+            {
+                return apply(value.value(), op);
+            }
+
+            Column tmp("");
+            return tmp;
+        }
     };
 
     // Фабричная функция
