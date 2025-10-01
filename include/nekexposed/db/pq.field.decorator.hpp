@@ -6,6 +6,7 @@
 
 #include <pqxx/pqxx>
 #include <optional>
+#include "nekexposed/value/value.hpp"
 #include "nekexposed/value/timestamp.value.hpp"
 
 namespace nekexposed::db
@@ -49,7 +50,7 @@ namespace nekexposed::db
 
             if (field.is_null()) return std::nullopt;
 
-            return field.as<T>();
+            return value::parse<T>(field);
         }
 
         void parse(const pqxx::row& row, T& result) const
@@ -63,16 +64,4 @@ namespace nekexposed::db
     private:
         [[nodiscard]] std::string virtual getKey() const = 0;
     };
-
-    template<>
-    inline std::optional<value::Timestamp> PQParser<value::Timestamp>::parse(const pqxx::row& row) const
-    {
-        const pqxx::field field = row.at(getKey());
-
-        if (field.is_null()) return std::nullopt;
-
-        const auto str = field.as<std::string>();
-
-        return value::parse(str);
-    }
 }

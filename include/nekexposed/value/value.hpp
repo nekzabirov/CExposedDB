@@ -5,6 +5,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <pqxx/pqxx>
 
 namespace nekexposed::value
 {
@@ -81,5 +83,11 @@ namespace nekexposed::value
         }
         result += "]";
         return result;
+    }
+
+    template<typename T>
+    [[nodiscard]] T parse(const pqxx::field& field)
+    {
+        return field.as<T>();
     }
 }

@@ -30,20 +30,6 @@ namespace nekexposed::value
 #endif
     }
 
-    // Renamed param to text; fix parsing with explicit std::get_time and state check
-    [[nodiscard]] inline Timestamp parse(const std::string_view text)
-    {
-        std::tm tm{};
-        std::istringstream ss(std::string{text});
-        ss.imbue(std::locale::classic());
-        ss >> std::get_time(&tm, kTimestampFormat);
-        if (!ss)
-        {
-            return Timestamp{}; // failure: epoch
-        }
-        return std::chrono::system_clock::from_time_t(std::mktime(&tm));
-    }
-
     template <>
     [[nodiscard]] inline std::string format(const Timestamp& value)
     {
@@ -55,5 +41,21 @@ namespace nekexposed::value
             << std::put_time(&tm, kTimestampFormat)
             << "'";
         return oss.str();
+    }
+
+    template <>
+    [[nodiscard]] inline Timestamp parse(const pqxx::field& field)
+    {
+        const auto text = field.as<std::string>();
+
+        std::tm tm{};
+        std::istringstream ss(std::string{text});
+        ss.imbue(std::locale::classic());
+        ss >> std::get_time(&tm, kTimestampFormat);
+        if (!ss)
+        {
+            return Timestamp{}; // failure: epoch
+        }
+        return std::chrono::system_clock::from_time_t(std::mktime(&tm));
     }
 }
