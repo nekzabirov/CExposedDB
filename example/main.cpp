@@ -20,6 +20,8 @@ public:
     inline static column::StringColumn<UserTable> LAST_NAME{"last_name"};
 
     inline static column::IntColumn<UserTable> AGE{"age"};
+
+    inline static column::TimestampColumn<UserTable> CREATED_AT{"created_at"};
 };
 
 int main()
@@ -45,7 +47,8 @@ int main()
                  .on_conflict(UserTable::FIRST_NAME)
                  .do_update_set(
                      UserTable::LAST_NAME == "Updated",
-                     UserTable::AGE == 24
+                     UserTable::AGE == 24,
+                     UserTable::CREATED_AT == value::Timestamp(std::chrono::system_clock::now())
                  )
                  .returning_all()
                  .to_sql();

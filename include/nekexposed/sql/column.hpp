@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base.hpp"
-#include "value.hpp"
+#include "nekexposed/value/value.hpp"
 #include "concepts.hpp"
 #include <string>
 
@@ -22,7 +22,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" = ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -32,7 +32,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" = ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -41,7 +41,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" != ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -50,7 +50,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" != ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -59,7 +59,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" <= ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -68,7 +68,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" > ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -77,7 +77,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" >= ");
-            tmp.append(Value::format(value));
+            tmp.append(value::format(value));
             return tmp;
         }
 
@@ -86,7 +86,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" LIKE ");
-            tmp.append(Value::format(pattern));
+            tmp.append(value::format(pattern));
             return tmp;
         }
 
@@ -94,7 +94,7 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" ILIKE ");
-            tmp.append(Value::format(pattern));
+            tmp.append(value::format(pattern));
             return tmp;
         }
 
@@ -127,7 +127,7 @@ namespace nekexposed::sql
             {
                 if (!first) tmp.append(", ");
                 first = false;
-                tmp.append(Value::format(val));
+                tmp.append(value::format(val));
             }
 
             tmp.append(")");
@@ -141,9 +141,9 @@ namespace nekexposed::sql
         {
             Column tmp(name_);
             tmp.append(" BETWEEN ");
-            tmp.append(Value::format(lower));
+            tmp.append(value::format(lower));
             tmp.append(" AND ");
-            tmp.append(Value::format(upper));
+            tmp.append(value::format(upper));
             return tmp;
         }
 

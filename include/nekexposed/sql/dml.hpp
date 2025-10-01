@@ -2,9 +2,7 @@
 
 #include "base.hpp"
 #include "column.hpp"
-#include "value.hpp"
 #include "select.hpp"
-#include <vector>
 #include <tuple>
 #include <stdexcept>
 
@@ -59,7 +57,7 @@ namespace nekexposed::sql
 
             buffer_ << "(";
             bool first = true;
-            ((buffer_ << (first ? "" : ", ") << Value::format(vals), first = false), ...);
+            ((buffer_ << (first ? "" : ", ") << value::format(vals), first = false), ...);
             buffer_ << ")";
 
             return *this;
@@ -83,13 +81,13 @@ namespace nekexposed::sql
                     // Если row - это tuple
                     std::apply([this, first = true](const auto&... vals) mutable
                     {
-                        ((buffer_ << (first ? "" : ", ") << Value::format(vals), first = false), ...);
+                        ((buffer_ << (first ? "" : ", ") << value::format(vals), first = false), ...);
                     }, row);
                 }
                 else
                 {
                     // Если row - одиночное значение
-                    buffer_ << Value::format(row);
+                    buffer_ << value::format(row);
                 }
                 buffer_ << ")";
             }

@@ -10,7 +10,6 @@
 #include "nekexposed/sql/dml.hpp"
 #include "nekexposed/sql/select.hpp"
 #include "nekexposed/sql/table.hpp"
-#include "nekexposed/sql/value.hpp"
 
 #include "nekexposed/schema/column/icolumn.hpp"
 #include "nekexposed/schema/column/bool.column.hpp"
@@ -26,6 +25,8 @@
 #include "nekexposed/db/pq.field.decorator.hpp"
 
 #include "nekexposed/value/timestamp.value.hpp"
+#include "value/value.hpp"
+#include "value/bool.value.hpp"
 
 namespace nekexposed::sql
 {
