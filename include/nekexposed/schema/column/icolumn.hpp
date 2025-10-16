@@ -51,11 +51,9 @@ namespace nekexposed::column
         ~IColumn() override = default;
 
     private:
-        std::string key_;
-
         [[nodiscard]] std::string getKey() const override
         {
-            return key_;
+            return this->key();
         }
     };
 }
