@@ -35,9 +35,16 @@ target_include_directories(${NAME}
 # Настройка свойств компиляции
 target_compile_features(${NAME} PUBLIC cxx_std_23)
 
-# Зависимости (если есть)
-target_include_directories(${NAME} PUBLIC ${PQXX_LIBS_INCLUDE_DIRS})
+# Зависимости - используем современный подход с target
 target_link_libraries(${NAME} PUBLIC ${PQXX_LIBS})
+
+# Добавляем include директории только если они не пустые и используем генераторные выражения
+if(PQXX_LIBS_INCLUDE_DIRS)
+    target_include_directories(${NAME} 
+        PUBLIC 
+        $<BUILD_INTERFACE:${PQXX_LIBS_INCLUDE_DIRS}>
+    )
+endif()
 
 # Установка библиотеки
 include(GNUInstallDirs)
