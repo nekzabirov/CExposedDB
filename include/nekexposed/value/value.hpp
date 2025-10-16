@@ -85,6 +85,12 @@ namespace nekexposed::value
         return result;
     }
 
+    template <>
+    [[nodiscard]] inline std::string format(const bool& value)
+    {
+        return value ? "true" : "false";
+    }
+
     template<typename T>
     [[nodiscard]] T parse(const pqxx::field& field)
     {
