@@ -123,53 +123,38 @@ namespace nekexposed::sql
         // Агрегатные функции
         [[nodiscard]] Column count() const
         {
-            Column tmp(name_);
-            tmp.append("COUNT(");
-            tmp.append(name_);
-            tmp.append(")");
+            Column tmp("COUNT("+name_+")");
             return tmp;
         }
 
         [[nodiscard]] Column sum() const
         {
-            Column tmp(name_);
-            tmp.append("SUM(");
-            tmp.append(name_);
-            tmp.append(")");
+            Column tmp("SUM("+name_+")");
             return tmp;
         }
 
         [[nodiscard]] Column avg() const
         {
-            Column tmp(name_);
-            tmp.append("AVG(");
-            tmp.append(name_);
-            tmp.append(")");
+            Column tmp("AVG("+name_+")");
             return tmp;
         }
 
         [[nodiscard]] Column min() const
         {
-            Column tmp(name_);
-            tmp.append("MIN(");
-            tmp.append(name_);
-            tmp.append(")");
+            Column tmp("MIN("+name_+")");
             return tmp;
         }
 
         [[nodiscard]] Column max() const
         {
-            Column tmp(name_);
-            tmp.append("MAX(");
-            tmp.append(name_);
-            tmp.append(")");
+            Column tmp("MAX("+name_+")");
             return tmp;
         }
 
         // DISTINCT
         [[nodiscard]] Column distinct() const
         {
-            Column tmp(name_);
+            Column tmp("");
             tmp.append("DISTINCT ");
             tmp.append(name_);
             return tmp;
@@ -187,7 +172,7 @@ namespace nekexposed::sql
         // CAST
         [[nodiscard]] Column cast(const std::string_view type) const
         {
-            Column tmp(name_);
+            Column tmp("");
             tmp.append("CAST(");
             tmp.append(name_);
             tmp.append(" AS ");
