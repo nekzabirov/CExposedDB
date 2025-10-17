@@ -192,6 +192,11 @@ namespace nekexposed::sql
                 throw std::logic_error("WHERE must come after FROM");
             }
 
+            if (condition.empty())
+            {
+                return *this;
+            }
+
             buffer_ << " WHERE " << condition.to_sql();
             has_where_ = true;
             return *this;

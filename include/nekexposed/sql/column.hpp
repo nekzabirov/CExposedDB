@@ -123,31 +123,31 @@ namespace nekexposed::sql
         // Агрегатные функции
         [[nodiscard]] Column count() const
         {
-            Column tmp("COUNT("+name_+")");
+            Column tmp("COUNT(" + name_ + ")");
             return tmp;
         }
 
         [[nodiscard]] Column sum() const
         {
-            Column tmp("SUM("+name_+")");
+            Column tmp("SUM(" + name_ + ")");
             return tmp;
         }
 
         [[nodiscard]] Column avg() const
         {
-            Column tmp("AVG("+name_+")");
+            Column tmp("AVG(" + name_ + ")");
             return tmp;
         }
 
         [[nodiscard]] Column min() const
         {
-            Column tmp("MIN("+name_+")");
+            Column tmp("MIN(" + name_ + ")");
             return tmp;
         }
 
         [[nodiscard]] Column max() const
         {
-            Column tmp("MAX("+name_+")");
+            Column tmp("MAX(" + name_ + ")");
             return tmp;
         }
 
@@ -200,11 +200,16 @@ namespace nekexposed::sql
         [[nodiscard]] Column& operator&&(const Column& other)
         {
             if (other.empty()) return *this;
-            if (this->empty()) return *this;
 
             const auto str = this->to_sql();
 
             clear();
+
+            if (str.empty())
+            {
+                append(other.to_sql());
+                return *this;
+            }
 
             append("(");
             append(str);
