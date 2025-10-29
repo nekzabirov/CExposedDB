@@ -87,9 +87,3 @@ install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/CPostgresqlConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MyLibrary
 )
-
-add_executable(test example/main.cpp)
-
-target_link_libraries(test ${NAME})
-
-add_subdirectory(example)
