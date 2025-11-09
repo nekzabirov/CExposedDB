@@ -18,6 +18,7 @@ option(BUILD_EXAMPLES "Build examples" ON)
 add_library(${NAME} STATIC
         src/dbclient.cpp
         src/value/timestamp.value.cpp
+        src/value/array.pq.field.decorator.hpp.cpp
 )
 
 # Алиас для удобства
