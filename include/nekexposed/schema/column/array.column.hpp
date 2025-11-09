@@ -8,7 +8,9 @@
 
 namespace nekexposed::column
 {
-    template <class TABLE, typename V>
+    using V = std::string;
+
+    template <class TABLE>
     class ArrayColumn final : public IColumn<TABLE, std::vector<V>>
     {
     public:

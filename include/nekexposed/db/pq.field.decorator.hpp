@@ -8,6 +8,7 @@
 #include <optional>
 #include "nekexposed/value/value.hpp"
 #include "nekexposed/value/timestamp.value.hpp"
+#include "nekexposed/value/array.value.hpp"
 
 namespace nekexposed::db
 {
