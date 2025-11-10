@@ -12,6 +12,11 @@ namespace nekexposed::value
     template <>
     [[nodiscard]] inline std::string format(const std::vector<std::string>& value)
     {
+        if (value.empty())
+        {
+            return "ARRAY[]::text[]";
+        }
+
         std::ostringstream oss;
 
         oss << "'{";
