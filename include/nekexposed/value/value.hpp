@@ -76,6 +76,10 @@ namespace nekexposed::value
 
     template<typename T>
     [[nodiscard]] std::string format(const std::vector<T>& vec) {
+        if (vec.empty())
+        {
+            return "ARRAY[]::text[]";
+        }
         std::string result = "ARRAY[";
         for (std::size_t i = 0; i < vec.size(); ++i) {
             if (i > 0) result += ", ";
