@@ -62,6 +62,18 @@ namespace nekexposed::db
             }
         }
 
+        void parse(const pqxx::row& row, std::optional<T>& result) const
+        {
+            if (const auto res = parse(row); res.has_value())
+            {
+                result = res.value();
+            }
+            else
+            {
+                result = std::nullopt;
+            }
+        }
+
     private:
         [[nodiscard]] std::string virtual getKey() const = 0;
     };
