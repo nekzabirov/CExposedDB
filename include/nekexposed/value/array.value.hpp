@@ -19,7 +19,7 @@ namespace nekexposed::value
         {
             if (i > 0) oss << ", ";
 
-            oss << "'" << value[i] << "'";
+            oss << "\"" << value[i] << "\"";
         }
         oss << "}'";
 
